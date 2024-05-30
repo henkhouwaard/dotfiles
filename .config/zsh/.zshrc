@@ -126,3 +126,7 @@ eval "$(fzf --zsh)"
 
 # setup zoxide
 eval "$(zoxide init zsh)"
+
+# setup autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^y' autosuggest-execute
