@@ -40,8 +40,9 @@ if [ $(command -v "fzf") ]; then
 fi
 
 # prompt
-fpath=($ZDOTDIR $fpath)
-autoload -Uz prompt; prompt
+# fpath=($ZDOTDIR $fpath)
+# autoload -Uz prompt; prompt
+eval "$(starship init zsh)"
 
 # stacks
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
