@@ -1,0 +1,12 @@
+.config/zsh/.zsh_sessions
+.config/zsh/.zcompdump
+.config/zsh/.zshistory
+.config/zsh/.zhistory
+.config/zsh/.zsh_history
+.config/tmux/plugins
+.gitconfig
+.DS_Store
+.azure
+dist
+coverage/
+.ssh
