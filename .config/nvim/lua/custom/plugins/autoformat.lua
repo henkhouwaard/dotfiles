@@ -12,7 +12,7 @@ return { -- Autoformat
     },
   },
   opts = {
-    notify_on_error = false,
+    notify_on_error = true,
     format_on_save = function(bufnr)
       local disable_filetypes = { c = true, cpp = true }
       return {
@@ -22,11 +22,15 @@ return { -- Autoformat
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
-      javascript = { 'prettierd' },
-      javascriptreact = { 'prettierd' },
-      jsx = { 'prettierd' },
-      typescriptreact = { 'prettierd' },
-      tsx = { 'prettierd' },
+      javascript = { 'prettier' },
+      html = { 'prettier' },
+      css = { 'prettier' },
+      javascriptreact = { 'prettier' },
+      jsx = { 'prettier' },
+      typescriptreact = { 'prettier' },
+      tsx = { 'prettier' },
+      typescript = { 'prettier' },
+      json = { 'prettier' },
       cs = { 'csharpier' },
     },
   },

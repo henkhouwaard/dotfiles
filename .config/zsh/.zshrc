@@ -39,10 +39,6 @@ if [ $(command -v "fzf") ]; then
     source $ZDOTDIR/fzf.zsh
 fi
 
-# prompt
-# fpath=($ZDOTDIR $fpath)
-# autoload -Uz prompt; prompt
-eval "$(starship init zsh)"
 
 # stacks
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
@@ -108,6 +104,13 @@ export PATH="$NPM_BIN:$PATH"                                        # NPM
 export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export PATH="/opt/homebrew/Caskroom/sqlcl/24.1.0.087.0929/sqlcl/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+export PATH="$HOME/.yarn/bin:$PATH" #globally installed yarn (npm) packages
+export PATH="$HOME/.dotnet/tools:$PATH" #dotnet tools
+
 #
 # setup my private python virtual environment
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -131,3 +134,7 @@ eval "$(zoxide init zsh)"
 # setup autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^y' autosuggest-execute
+# prompt
+# fpath=($ZDOTDIR $fpath)
+# autoload -Uz prompt; prompt
+eval "$(starship init zsh)"

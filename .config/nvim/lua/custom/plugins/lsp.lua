@@ -146,9 +146,16 @@ return { -- LSP Configuration & Plugins
       -- But for many setups, the LSP (`tsserver`) will work just fine
       -- tsserver = {},
       --
-      csharp_ls = {},
-      tsserver = {},
 
+      csharp_ls = {},
+      gopls = {},
+      gofumpt = {},
+      ts_ls = {},
+      html = {},
+      cssls = {},
+      emmet_language_server = {},
+      tailwindcss = {},
+      -- eslint = {},
       lua_ls = {
         -- cmd = {...},
         -- filetypes = { ...},
