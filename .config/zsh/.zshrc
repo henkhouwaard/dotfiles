@@ -138,3 +138,5 @@ bindkey '^y' autosuggest-execute
 # fpath=($ZDOTDIR $fpath)
 # autoload -Uz prompt; prompt
 eval "$(starship init zsh)"
+
+if ! colima status &>/dev/null; then ~/.config/colima/autostart.sh; fi
