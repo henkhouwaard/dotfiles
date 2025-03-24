@@ -1,7 +1,6 @@
 return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'main',
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
       { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
@@ -10,7 +9,12 @@ return {
     opts = {
       debug = true, -- Enable debugging
       -- See Configuration section for rest
+      mappings = {
+        complete = {
+          insert = '<C-y>', -- Accept completion
+        },
+      },
+      -- See Commands section for default commands if you want to lazy load on them
     },
-    -- See Commands section for default commands if you want to lazy load on them
   },
 }
