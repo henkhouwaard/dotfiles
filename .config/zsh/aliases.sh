@@ -38,7 +38,7 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 # | cp |
 # +----+
 
-alias la='ls -alh'
+alias la='eza -alh'
 
 # +------+
 # | grep |
@@ -128,13 +128,6 @@ alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n
 alias gblog="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:red)%(refname:short)%(color:reset) - %(color:yellow)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:blue)%(committerdate:relative)%(color:reset))'"                                                             # git log for each branches
 alias dif="git diff --no-index"                                                                   # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
 
-# +------+
-# | tmux |
-# +------+
-
-alias tmuxk='tmux kill-session -t'
-alias tmuxa='tmux attach -t'
-alias tmuxl='tmux list-sessions'
 
 # +------+
 # | lynx |
@@ -170,9 +163,3 @@ alias dot="$HOME/.dotfiles"
 alias gosrc="$GOPATH/src/" # golang src
 alias gobin="$GOPATH/bin/" # golang bin
 
-# +---------+
-# | scripts |
-# +---------+
-
-alias ddg="duckduckgo"
-alias wiki="wikipedia"

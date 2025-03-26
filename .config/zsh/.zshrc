@@ -1,5 +1,45 @@
 #!/usr/bin/env zsh
 
+###############################
+# EXPORT ENVIRONMENT VARIABLE #
+###############################
+
+# Only set TERM if not already set
+export TERM=${TERM:-rxvt-256color}
+
+export DOTFILES="$HOME/.dotfiles"
+export WORKSPACE="$HOME/code"
+
+# editor
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+# zsh
+export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
+export HISTSIZE=10000                   # Maximum events for internal history
+export SAVEHIST=10000                   # Maximum events in history file
+
+# other software
+export VIMCONFIG="$XDG_CONFIG_HOME/nvim"
+
+# Man pages
+export MANPAGER='nvim +Man!'
+
+# golang
+export GOPATH="$WORKSPACE/go"
+export GOCACHE="$XDG_CACHE_HOME/go-build"
+
+
+# git
+export GIT_REVIEW_BASE="main" # See gitconfig
+
+if [ -d /opt/homebrew ]; then
+  HOMEBREW_PREFIX="/opt/homebrew"
+elif command -v brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+fi
+export PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$XDG_CONFIG_HOME/node_modules/bin:$HOME/.yarn/bin:$HOME/.dotnet/tools:$PATH"
+
 # help!
 HELPDIR="/usr/share/zsh/5.9/help"
 unalias run-help
@@ -15,7 +55,6 @@ setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
-setopt CORRECT              # Spelling correction
 setopt CDABLE_VARS          # Change directory to a path stored in a variable.
 setopt EXTENDED_GLOB        # Use extended globbing syntax.
 
@@ -33,17 +72,6 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 
-source $ZDOTDIR/completion.zsh
-source $ZDOTDIR/aliases.sh
-if [ $(command -v "fzf") ]; then
-    source $ZDOTDIR/fzf.zsh
-fi
-
-
-# stacks
-setopt AUTO_PUSHD           # Push the current directory visited on the stack.
-setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
-setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
 # vim
 bindkey -v
@@ -96,47 +124,32 @@ for km in viopp visual; do
   done
 done
 
-# syntax highlighting!
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if command -v brew &>/dev/null; then
+  # syntax highlighting!
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# We ideally want this in .zshenv, but that is incompatible with homebrew
-export PATH="$NPM_BIN:$PATH"                                        # NPM
-export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-export PATH="/opt/homebrew/Caskroom/sqlcl/24.1.0.087.0929/sqlcl/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  # setup autosuggestions
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  bindkey '^y' autosuggest-execute
 
-export PATH="$HOME/.yarn/bin:$PATH" #globally installed yarn (npm) packages
-export PATH="$HOME/.dotnet/tools:$PATH" #dotnet tools
-
-#
-# setup my private python virtual environment
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-venv="$HOME/.venv"
-if [[ ! -d "$venv" ]]
-then
-    mkdir "$venv"
-    python3 -m venv $venv
+  # NPM
+  [ -s "$(brew --prefix nvm)/nvm.sh" ] && \. "$(brew --prefix nvm)/nvm.sh"  # This loads nvm
+  [ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 fi
-source "$venv/bin/activate"
 
-# unbind this, because it isn't working when using vim tmux navigator
-bindkey -r "^L"
-#
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
+export NPM_PATH="$XDG_CONFIG_HOME/node_modules"
+export NPM_BIN="$XDG_CONFIG_HOME/node_modules/bin"
+export NVM_DIR="$HOME/.nvm"
 
-# setup zoxide
-eval "$(zoxide init zsh)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+if command -v starship &>/dev/null; then
+  eval "$(starship init zsh)"
+fi
 
-# setup autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey '^y' autosuggest-execute
-# prompt
-# fpath=($ZDOTDIR $fpath)
-# autoload -Uz prompt; prompt
-eval "$(starship init zsh)"
-
-if ! colima status &>/dev/null; then ~/.config/colima/autostart.sh; fi
+source "$ZDOTDIR/aliases.sh"
+if command -v fzf &>/dev/null; then
+    source "$ZDOTDIR/fzf.zsh"
+fi
+#if ! colima status &>/dev/null; then ~/.config/colima/autostart.sh; fi

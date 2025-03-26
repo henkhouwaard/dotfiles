@@ -52,3 +52,7 @@ _fzf_comprun() {
     *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
   esac
 }
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
