@@ -35,7 +35,7 @@ export GIT_REVIEW_BASE="main" # See gitconfig
 
 if [ -d /opt/homebrew ]; then
   HOMEBREW_PREFIX="/opt/homebrew"
-elif
+elif [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   HOMEBREW_PREFIX="$(brew --prefix)"
 elif command -v brew &>/dev/null; then
